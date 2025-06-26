@@ -39,8 +39,24 @@ async function removeNote(id) {
   } else console.log(chalk.yellow(`There is no one Note w/ id=${id}`));
 }
 
+async function editNote(data) {
+  const notes = await getNotes();
+  const { id, title } = data;
+  notes.forEach((note) => {
+    if (note.id === id) {
+      note.title = title;
+      console.log(note);
+      return;
+    }
+  });
+  await fs.writeFile(notesPath, JSON.stringify(notes));
+  console.log(chalk.bgGreen(`Note w/ id=${id} has been edited!`));
+}
+
 module.exports = {
   addNote,
   printNotes,
   removeNote,
+  getNotes,
+  editNote,
 };
