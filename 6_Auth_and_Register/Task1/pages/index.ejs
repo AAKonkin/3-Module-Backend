@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <title><%= title %></title>
+  </head>
+  <body class="py-5 mx-auto">
+    <% if (isEmployee) { %>
+    <div class="container mt-5">
+      <h1 class="text-center mb-4"><%= title %></h1>
+
+      <% if (applications.length) { %>
+      <div class="table-responsive">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="item-container d-flex">
+              <div class="col-auto pe-3 fw-bold" style="width: 200px">
+                Дата отправки
+              </div>
+              <div class="col-auto pe-3 fw-bold" style="width: 250px">ФИО</div>
+              <div class="col-auto pe-3 fw-bold" style="width: 250px">
+                Телефон
+              </div>
+              <div class="col flex-grow-1 fw-bold">Проблема</div>
+            </div>
+          </li>
+
+          <% for (let i = 0; i < applications.length; i++) { %>
+          <li class="list-group-item">
+            <div class="item-container d-flex">
+              <div class="col-auto pe-3 text-truncate" style="width: 200px">
+                <%= applications[i].date %>
+              </div>
+              <div class="col-auto pe-3 text-truncate" style="width: 250px">
+                <%= applications[i].fio %>
+              </div>
+              <div class="col-auto pe-3 text-truncate" style="width: 250px">
+                <%= applications[i].phone %>
+              </div>
+              <div class="col flex-grow-1 text-truncate">
+                <%= applications[i].problem %>
+              </div>
+            </div>
+          </li>
+          <% } %>
+        </ul>
+      </div>
+      <% } else { %>
+      <div class="text-center py-4">Заявки отсутствуют!</div>
+      <% } %>
+    </div>
+    <% } else { %> <% if (created) {%>
+    <div class="alert alert-success">Заявка успешно добавлена!</div>
+    <% } %> <% if (error) {%>
+    <div class="alert alert-danger">Something went wrong!</div>
+    <% } %> <% %>
+
+    <form method="POST" action="/" class="card-body p-md-5 text-black">
+      <h1 class="mb-5 text-center text-uppercase">Запись к врачу</h1>
+
+      <div class="form-outline mb-4">
+        <label class="form-label" for="fio">ФИО</label>
+        <input
+          type="text"
+          name="fio"
+          id="fio"
+          class="form-control form-control-lg"
+        />
+      </div>
+
+      <div class="form-outline mb-4">
+        <label class="form-label" for="phone">Номер телефона</label>
+        <input
+          type="phone"
+          name="phone"
+          id="phone"
+          class="form-control form-control-lg"
+        />
+      </div>
+
+      <div class="form-outline mb-4">
+        <label class="form-label" for="problem">Опишите вашу проблему</label>
+        <input
+          type="text"
+          name="problem"
+          id="problem"
+          class="form-control form-control-lg"
+        />
+      </div>
+
+      <div class="d-flex justify-content-end pt-3">
+        <button type="submit" class="btn btn-success btn-lg ms-2">
+          Отправить
+        </button>
+      </div>
+    </form>
+    <% } %>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
